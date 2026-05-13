@@ -13,16 +13,31 @@ public class BasicGameApp {
     public static void main(String[] args) {
         BasicGameApp a = new BasicGameApp();
     }
-    public BasicGameApp(){
+    public BasicGameApp() {
         System.out.println("Welcome to Blackjack!");
         deck = new Card[52];
-
-        for(int x = 0; x < 13; x++){
-            deck[x] = new Card(10,x, "Hearts");
-            deck[x].printInfo();
+        int cardIndex = 0;
+        for(int y = 0; y<4; y++) {
+            for (int x = 0; x < 13; x++) {
+                deck[cardIndex] = new Card(10, x, y);
+                cardIndex++;
+                //deck[x].printInfo();
+            }
         }
-
-
-
+        shuffle();
+        printDeck();
+    }
+    public void printDeck(){
+        for (int x = 0; x < deck.length; x++) {
+                deck[x].printInfo();
+        }
+    }
+    public void shuffle(){
+        for (int w = 0; w < deck.length; w++) {
+            int randy = (int)(Math.random()*52);
+            Card helper = deck[randy];
+            deck[randy] = deck[w];
+            deck[w] = helper;
+        }
     }
 }

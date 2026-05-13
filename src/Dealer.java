@@ -3,4 +3,9 @@ public class Dealer {
     public int cardTotal;
     public Card[] hand;
     public boolean isBust;
+    public Dealer(){
+        isOver16 = false;
+        cardTotal = 2;
+        isBust = false;
+    }
 }
