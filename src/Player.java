@@ -10,12 +10,11 @@ public class Player {
     // todo: make a print that prints all the instance variables
 
     public Player(){
-    cardTotal = 2;
+    cardTotal = 0;
     isBust = false;
     isHit = false;
     name = "Hubert";
     hand = new Card[2];
-    printInfo();
 
     }
     public void printInfo () {
@@ -24,8 +23,16 @@ public class Player {
         System.out.println("It is " + isHit + "That I want to hit.");
         System.out.println("My name is " + name + ".");
         for(int x = 0; x < hand.length; x++){
-            System.out.println(x);
+            hand[x].printInfo();
         }
+    }
+    //todo: make a method called calculateTotal()
+    public void calculateTotal(){
+        int addValue = 0;
+        for(int d = 0; d < hand.length; d++) {
+            addValue = addValue + hand[d].value;
+        }
+        cardTotal = addValue;
     }
 }
 
