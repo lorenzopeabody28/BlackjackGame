@@ -14,11 +14,18 @@ public class Player {
     isBust = false;
     isHit = false;
     name = "Hubert";
+    hand = new Card[2];
+    printInfo();
 
     }
     public void printInfo () {
-        System.out.println("I have " + cardTotal + " cards. " + "I did not " + suit + " is worth " + value + " points!");
-
+        System.out.println("I have " + cardTotal + " cards.");
+        System.out.println("It is " + isBust + "that I busted.");
+        System.out.println("It is " + isHit + "That I want to hit.");
+        System.out.println("My name is " + name + ".");
+        for(int x = 0; x < hand.length; x++){
+            System.out.println(x);
+        }
     }
 }
 
