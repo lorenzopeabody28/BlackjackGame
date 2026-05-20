@@ -30,6 +30,8 @@ public class BasicGameApp {
         }
         shuffle();
         printDeck();
+        p1.calculateTotal();
+        d1.calculateTotal();
         //give the player cards
         p1.hand[0] = deck[0];
         p1.hand[1] = deck[1];
