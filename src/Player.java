@@ -16,6 +16,10 @@ public class Player {
     name = "Hubert";
     hand = new Card[2];
 
+//    for (int w = 0; w < hand.length; w++) {
+//            hand = new Card[w];
+//    }
+
     }
     public void printInfo () {
         System.out.println("I have " + cardTotal + " cards.");

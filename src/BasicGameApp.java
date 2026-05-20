@@ -30,11 +30,10 @@ public class BasicGameApp {
         }
         shuffle();
         printDeck();
-        p1.calculateTotal();
-        d1.calculateTotal();
         //give the player cards
         p1.hand[0] = deck[0];
         p1.hand[1] = deck[1];
+
 
         d1.hand[0] = deck[2];
         d1.hand[1] = deck[3];
@@ -46,8 +45,32 @@ public class BasicGameApp {
         String aName = s.nextLine();
         System.out.println(aName);
         p1.name = aName;
+
         p1.calculateTotal();
         p1.printInfo();
+
+        d1.calculateTotal();
+        d1.printInfo();
+
+        System.out.println("Dealer: Do you want to Hit or Stand?");
+        if (s.nextLine().equals("Hit")){
+            p1.hand[2] = deck[4];
+            p1.hand = new Card[3];
+            p1.printInfo();
+        }
+        else if (s.nextLine().equals("Stand")){
+            p1.printInfo();
+        }
+
+        if(d1.cardTotal <= 15) {
+            d1.hand[2] = deck[5];
+            d1.printInfo();
+        }
+        else if(d1.cardTotal >= 16){
+            d1.printInfo();
+        }
+
+
     }
     public void printDeck(){
         for (int x = 0; x < deck.length; x++) {
