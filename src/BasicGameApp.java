@@ -1,4 +1,4 @@
-import java.util.Base64;
+
 import java.util.Scanner;
 
 public class BasicGameApp {
@@ -14,6 +14,7 @@ public class BasicGameApp {
     public static void main(String[] args) {
         BasicGameApp a = new BasicGameApp();
     }
+
     public BasicGameApp() {
         System.out.println("Welcome to Blackjack!");
         deck = new Card[52];
@@ -21,7 +22,7 @@ public class BasicGameApp {
         d1 = new Dealer();
 
         int cardIndex = 0;
-        for(int y = 0; y<4; y++) {
+        for (int y = 0; y < 4; y++) {
             for (int x = 0; x < 13; x++) {
                 deck[cardIndex] = new Card(10, x, y);
                 cardIndex++;
@@ -31,12 +32,19 @@ public class BasicGameApp {
         shuffle();
         printDeck();
         //give the player cards
-        p1.hand[0] = deck[0];
-        p1.hand[1] = deck[1];
+        //p1.hand[0] = deck[0];
+        //p1.hand[1] = deck[1];
 
 
-        d1.hand[0] = deck[2];
-        d1.hand[1] = deck[3];
+        //d1.hand[0] = deck[2];
+        //d1.hand[1] = deck[3];
+
+        p1.addCard(deck[0]);
+        p1.addCard(deck[1]);
+
+        d1.addCard(deck[2]);
+        d1.addCard(deck[3]);
+
         //todo hw: give the dealer 2 cards
 
         //ask the user questions
@@ -47,42 +55,77 @@ public class BasicGameApp {
         p1.name = aName;
 
         p1.calculateTotal();
-        p1.printInfo();
+        if (p1.cardTotal == 21) {
+            System.out.println("Blackjack! You Win!");
+        }
+        else {
 
-        d1.calculateTotal();
-        d1.printInfo();
+            System.out.println("Dealer's visible card:");
+            d1.hand[0].printInfo();
 
-        System.out.println("Dealer: Do you want to Hit or Stand?");
-        if (s.nextLine().equals("Hit")){
-            p1.hand[2] = deck[4];
-            p1.hand = new Card[3];
+            System.out.println("Your Cards:");
             p1.printInfo();
-        }
-        else if (s.nextLine().equals("Stand")){
-            p1.printInfo();
+
+            d1.calculateTotal();
+
+            int nextCard = 4;
+            while (true) {
+
+                System.out.println("Do you want to Hit or Stand?");
+                String answer = s.nextLine();
+                if (answer.equals("Hit")) {
+                    p1.isHit = true;
+                    p1.addCard(deck[nextCard]);
+                    nextCard++;
+                    p1.calculateTotal();
+                    p1.printInfo();
+                    if (p1.cardTotal > 21) {
+                        System.out.println("Dealer reveals their hand.");
+                        d1.printInfo();
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+
+
+            if (p1.cardTotal > 21) {
+                System.out.println("You Busted! You Lose!");
+            } else {
+                if (d1.cardTotal <= 15) {
+                    d1.addCard(deck[nextCard]);
+                    d1.calculateTotal();
+                    System.out.println("Dealer reveals their hand:");
+                    d1.printInfo();
+                } else if (d1.cardTotal >= 16) {
+                    System.out.println("Dealer reveals their hand:");
+                    d1.printInfo();
+                }
+            else if (d1.cardTotal > 21) {
+                    System.out.println("Dealer Busted! You Win!");
+                } else if (p1.cardTotal > d1.cardTotal) {
+                    System.out.println("You Win!");
+                } else if (d1.cardTotal > p1.cardTotal) {
+                    System.out.println("You Lose!");
+                } else {
+                    System.out.println("It's a tie!");
+                }
+            }
         }
 
-        if(d1.cardTotal <= 15) {
-            d1.hand[2] = deck[5];
-            d1.printInfo();
         }
-        else if(d1.cardTotal >= 16){
-            d1.printInfo();
-        }
-
-
-    }
-    public void printDeck(){
-        for (int x = 0; x < deck.length; x++) {
+        public void printDeck () {
+            for (int x = 0; x < deck.length; x++) {
                 deck[x].printInfo();
+            }
+        }
+        public void shuffle () {
+            for (int w = 0; w < deck.length; w++) {
+                int randy = (int) (Math.random() * 52);
+                Card helper = deck[randy];
+                deck[randy] = deck[w];
+                deck[w] = helper;
+            }
         }
     }
-    public void shuffle(){
-        for (int w = 0; w < deck.length; w++) {
-            int randy = (int)(Math.random()*52);
-            Card helper = deck[randy];
-            deck[randy] = deck[w];
-            deck[w] = helper;
-        }
-    }
-}
