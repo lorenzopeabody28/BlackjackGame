@@ -102,7 +102,7 @@ public class BasicGameApp {
                     System.out.println("Dealer reveals their hand:");
                     d1.printInfo();
                 }
-            else if (d1.cardTotal > 21) {
+            if (d1.cardTotal > 21) {
                     System.out.println("Dealer Busted! You Win!");
                 } else if (p1.cardTotal > d1.cardTotal) {
                     System.out.println("You Win!");
